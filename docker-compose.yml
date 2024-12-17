@@ -10,7 +10,7 @@ services:
     volumes:
       - ./frontend:/app
     working_dir: /app
-    command: npm start
+    command: sh -c "sleep 6 && npm start"
     networks:
       - app-network
     depends_on:
@@ -24,11 +24,30 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - ./backend/db.sqlite3:/app/backend/db.sqlite3
+    environment:
+      - DATABASE_URL=postgres://user:password@database:5432/db
     working_dir: /app
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: bash -c "sleep 3 && python3 manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - database
     networks:
       - app-network
+
+  database:
+    image: postgres:13
+    environment: 
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user123
+      POSTGRES_DB: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
 
 networks:
   app-network:
