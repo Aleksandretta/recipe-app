@@ -16,7 +16,7 @@ const App = () => {
         tags: []
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-    const [selectedRecipeName, setSelectedRecipeName] = useState(null);
+   // const [selectedRecipeName, setSelectedRecipeName] = useState(null);
 
     useEffect(() => {
         fetchRecipes();
@@ -44,8 +44,22 @@ const App = () => {
     };
 
     const handleTagChange = (e) => {
-        const value = Array.from(e.target.selectedOptions, option => option.value);
-        setNewRecipe({ ...newRecipe, tags: value });
+        //const value = Array.from(e.target.selectedOptions, option => option.value);
+        //setNewRecipe({ ...newRecipe, tags: value });
+       const tagId = parseInt(e.target.value);
+       const checked = e.target.checked;
+
+       if (checked) {
+           setNewRecipe((prevRecipe) => ({
+              ...prevRecipe,
+              tags: [...prevRecipe.tags, tagId],
+           }));
+       } else {
+           setNewRecipe((prevRecipe) => ({
+              ...prevRecipe,
+              tags: prevRecipe.tags.filter((id) => id !== tagId),
+           }));
+       }
     };
 
     const handleAddRecipe = () => {
@@ -153,7 +167,7 @@ const App = () => {
                                             onChange={handleInputsChange}
                                         />
 
-                                        {/* Dropdown do wyboru tagów */}
+                                        {/* Dropdown do wyboru tagów
                                         <select
                                             name='tags'
                                             multiple={true}
@@ -165,7 +179,24 @@ const App = () => {
                                                     {tag.name}
                                                 </option>
                                             ))}
-                                        </select>
+                                        </select>*/}
+
+                                        {/* Formularz wyboru tagów jako checkboxy */}
+                                        <div className="tag-container">
+                                           {tags.map(tag => (
+                                              <div key={tag.id} className="tag-item">
+                                                 <input
+					             type="checkbox"
+					             id={`tag-${tag.id}`}
+					             value={tag.id}
+					             checked={newRecipe.tags.includes(tag.id)}
+					             onChange={handleTagChange}
+					         />
+					         <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
+					      </div>
+					   ))}
+					</div>
+
 
                                         <div className='form-buttons'>
                                             {

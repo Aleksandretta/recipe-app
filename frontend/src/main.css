@@ -121,3 +121,24 @@ h1 {
     background-color: #FF8E85;
 }
 
+.tag-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-item {
+    display: flex;
+    justify-content: start;
+    gap: 8px;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+}
+
+label {
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+}

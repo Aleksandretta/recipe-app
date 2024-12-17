@@ -24,8 +24,8 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    environment:
-      - DATABASE_URL=postgres://user:password@database:5432/db
+    #environment:
+      #- DATABASE_URL=postgres://user:password@database:5432/db
     working_dir: /app
     command: bash -c "sleep 3 && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
