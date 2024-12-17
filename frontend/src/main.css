@@ -142,3 +142,18 @@ label {
     cursor: pointer;
     user-select: none;
 }
+
+.search-filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+}

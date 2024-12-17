@@ -17,6 +17,8 @@ const App = () => {
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
    // const [selectedRecipeName, setSelectedRecipeName] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedTags, setSelectedTags] = useState([]);
 
     useEffect(() => {
         fetchRecipes();
@@ -43,24 +45,38 @@ const App = () => {
         setNewRecipe({ ...newRecipe, [e.target.name]: e.target.value });
     };
 
-    const handleTagChange = (e) => {
+    const handleTagChangeInForm = (e) => {
         //const value = Array.from(e.target.selectedOptions, option => option.value);
         //setNewRecipe({ ...newRecipe, tags: value });
        const tagId = parseInt(e.target.value);
        const checked = e.target.checked;
 
-       if (checked) {
-           setNewRecipe((prevRecipe) => ({
-              ...prevRecipe,
-              tags: [...prevRecipe.tags, tagId],
-           }));
-       } else {
-           setNewRecipe((prevRecipe) => ({
-              ...prevRecipe,
-              tags: prevRecipe.tags.filter((id) => id !== tagId),
-           }));
-       }
+       setNewRecipe((prevRecipe) => ({
+          ...prevRecipe,
+          tags: checked
+             ? [...prevRecipe.tags, tagId]
+             : prevRecipe.tags.filter((id) => id !== tagId),
+       }));
     };
+
+    const handleTagChangeInSearch = (e) => {
+       const tagId = parseInt(e.target.value);
+       const checked = e.target.checked;
+
+       setSelectedTags((prevSelectedTags) =>
+          checked
+              ? [...prevSelectedTags, tagId]
+              : prevSelectedTags.filter((id) => id !== tagId)
+       );
+    }
+
+    const filteredRecipes = recipes.filter((recipe) => {
+       const matchesSearch = recipe.name.toLowerCase().includes(searchQuery.toLowerCase());
+
+       const matchesTags = selectedTags.length === 0 || recipe.tags.some((tag) => selectedTags.includes(tag));
+
+       return matchesSearch && matchesTags;
+    });
 
     const handleAddRecipe = () => {
         axios.post('http://127.0.0.1:8000/api/recipes/', newRecipe)
@@ -118,6 +134,10 @@ const App = () => {
             })
             .catch(error => console.error(error));
     };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    }
 
     return (
         <Router>
@@ -190,7 +210,7 @@ const App = () => {
 					             id={`tag-${tag.id}`}
 					             value={tag.id}
 					             checked={newRecipe.tags.includes(tag.id)}
-					             onChange={handleTagChange}
+					             onChange={handleTagChangeInForm}
 					         />
 					         <label htmlFor={`tag-${tag.id}`}>{tag.name}</label>
 					      </div>
@@ -213,10 +233,33 @@ const App = () => {
                                     </div>
                                 </div>
 
+                                <div className="search-filter-container">
+                                   <input
+                                      type="text"
+                                      placeholder="Search recipes..."
+                                      value={searchQuery}
+                                      onChange={handleSearchChange}
+                                    />
+
+                                    <div className="tag-container">
+                                        {tags.map((tag) => (
+                                           <label key={tag.id} className="tag-item">
+                                               <input
+                                                  type="checkbox"
+                                                  value={tag.id}
+                                                  checked={selectedTags.includes(tag.id)}
+                                                  onChange={handleTagChangeInSearch}
+                                                />
+                                                {tag.name}
+                                           </label>
+                                         ))}
+                                     </div>
+                                </div>
+
                                 {/* Lista przepisów */}
                                 <ul className='recipes-list'>
                                     {
-                                        recipes.map(recipe => (
+                                        filteredRecipes.map(recipe => (
                                             <li key={recipe.id}>
                                                 <div>
                                                     <strong>{recipe.name}</strong>
