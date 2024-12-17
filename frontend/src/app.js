@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import axios from 'axios';
 import './main.css';
@@ -19,6 +19,7 @@ const App = () => {
    // const [selectedRecipeName, setSelectedRecipeName] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
+    const titleRef = useRef(null);
 
     useEffect(() => {
         fetchRecipes();
@@ -97,12 +98,22 @@ const App = () => {
     const handleEditClick = (recipe) => {
         setSelectedRecipe(recipe);
         setNewRecipe(recipe);
+
+        //Przewijanie strony do góry
+        if (titleRef.current) {
+            titleRef.current.scrollIntoView({ behavior: 'smooth'});
+        }
     };
 
     const handleUpdateRecipe = (id) => {
         axios.put(`http://127.0.0.1:8000/api/recipes/${selectedRecipe.id}/`, newRecipe)
             .then(response => {
-                fetchRecipes();
+                //fetchRecipes();
+               setRecipes(prevRecipes => [
+                  response.data,
+                  ...prevRecipes.filter(recipe => recipe.id !== response.data.id)
+               ]);
+                setSelectedRecipe(null);
                 setNewRecipe({
                     name: "",
                     country: "",
@@ -142,7 +153,7 @@ const App = () => {
     return (
         <Router>
             <div className='app-container'>
-                <h1>Your food recipes</h1>
+                <h1 ref={titleRef}>Food recipes</h1>
 
                 {/* Routes to render different components based on the URL */}
                 <Routes>
