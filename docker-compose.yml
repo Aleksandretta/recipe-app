@@ -3,32 +3,30 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app
     working_dir: /app
     command: npm start
-    depends_on:
-      - backend
     networks:
       - app-network
+    depends_on:
+      - backend
 
   backend:
     build:
-      context: ./backend
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - ./backend/db.sqlite3:/app/backend/db.sqlite3
     working_dir: /app
-    command: python manage.py runserver 0.0.0.0:8000
-    networks:
-      - app-network
-
-  db:
-    image: nouchka/sqlite3  # This can be removed as SQLite is embedded in the Django container, no need to spin a separate db container
+    command: python3 manage.py runserver 0.0.0.0:8000
     networks:
       - app-network
 
