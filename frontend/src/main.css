@@ -2,7 +2,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #FFBDBD;
 }
 
 .app-container {
@@ -45,16 +45,17 @@ h1 {
     padding: 10px;
     margin-top: 10px;
     cursor: pointer;
-    background-color: #4caf50;
+    background-color: #FF7F7F;
     color: #fff;
     border: none;
     font-size: 16px;
     border-radius: 4px;
     transition: background-color 0.3s;
+    margin-right: 5px;
 }
 
 .form-buttons button:hover {
-    background-color: #45a049;
+    background-color: #FF9E9E;
 }
 
 .recipes-list {
@@ -88,7 +89,7 @@ h1 {
     justify-content: space-between;
 }
 
-.recipes-list button {
+.recipes-list button, .recipes-list .view button {
     padding: 8px;
     cursor: pointer;
     font-size: 14px;
@@ -98,25 +99,25 @@ h1 {
 }
 
 .recipes-list button.edit {
-    background-color: #2196F3;
+    background-color: #FF9B9B;
     color: #fff;
 }
 
 .recipes-list button.delete {
-    background-color: #f44336;
+    background-color: #FF6F61;
     color: #fff;
     margin-right: 0;
 }
 
-.recipes-list button.view:hover {
+.recipes-list .view button:hover {
     background-color: #f0f0f0;
 }
 
 .recipes-list button.edit:hover {
-    background-color: #64b5f6;
+    background-color: #FFB7B7;
 }
 
 .recipes-list button.delete:hover {
-    background-color: #e57373;
+    background-color: #FF8E85;
 }
 
