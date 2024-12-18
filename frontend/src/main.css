@@ -176,3 +176,12 @@ input[type="checkbox"]:checked {
     background-color: #FF6F61;
     border-color: #FF6F61;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    display: block;
+}

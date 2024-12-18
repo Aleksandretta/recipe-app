@@ -16,10 +16,18 @@ const App = () => {
         tags: []
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-   // const [selectedRecipeName, setSelectedRecipeName] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
     const titleRef = useRef(null);
+
+    const [formErrors, setFormErrors] = useState({
+        name: "",
+        country: "",
+        prep_time: "",
+        description: "",
+        recipe: "",
+        tags: ""
+    });
 
     useEffect(() => {
         fetchRecipes();
@@ -80,6 +88,7 @@ const App = () => {
     });
 
     const handleAddRecipe = () => {
+    if (validateForm()) {
         axios.post('http://127.0.0.1:8000/api/recipes/', newRecipe)
             .then(response => {
                 setRecipes([...recipes, response.data]);
@@ -92,8 +101,12 @@ const App = () => {
                     tags: []
                 });
             })
-            .catch(error => console.error(error));
-    };
+            .catch(error => {
+                console.error("Error adding recipe:", error);
+            });
+    }
+};
+
 
     const handleEditClick = (recipe) => {
         setSelectedRecipe(recipe);
@@ -150,6 +163,34 @@ const App = () => {
         setSearchQuery(e.target.value);
     }
 
+    const validateForm = () => {
+        let errors = {
+            name: "",
+            country: "",
+            prep_time: "",
+            description: "",
+            recipe: "",
+            tags: ""
+         };
+         let isValid = true;
+
+         const requiredFields = ['name', 'country', 'prep_time', 'description', 'recipe'];
+         for (let field of requiredFields) {
+             if (!newRecipe[field]) {
+                 errors[field] = `Please fill in ${field} field`;
+                 isValid = false;
+             }
+         }
+
+         if (newRecipe.tags.length === 0) {
+             errors.tags = 'Please select at least one tag';
+             isValid = false;
+         }
+
+         setFormErrors(errors);
+         return isValid;
+};
+
     return (
         <Router>
             <div className='app-container'>
@@ -171,6 +212,7 @@ const App = () => {
                                             value={newRecipe.name}
                                             onChange={handleInputsChange}
                                         />
+                                        {formErrors.name && <small className="error">{formErrors.name}</small>}
                                         <input
                                             type='text'
                                             name='country'
@@ -178,6 +220,7 @@ const App = () => {
                                             value={newRecipe.country}
                                             onChange={handleInputsChange}
                                         />
+                                        {formErrors.country && <small className="error">{formErrors.country}</small>}
                                         <input
                                             type='text'
                                             name='prep_time'
@@ -185,18 +228,21 @@ const App = () => {
                                             value={newRecipe.prep_time}
                                             onChange={handleInputsChange}
                                         />
+                                        {formErrors.prep_time && <small className="error">{formErrors.prep_time}</small>}
                                         <textarea
                                             name='description'
                                             placeholder='description'
                                             value={newRecipe.description}
                                             onChange={handleInputsChange}
                                         />
+                                        {formErrors.description && <small className="error">{formErrors.description}</small>}
                                         <textarea
                                             name='recipe'
                                             placeholder='recipe'
                                             value={newRecipe.recipe}
                                             onChange={handleInputsChange}
                                         />
+                                        {formErrors.recipe && <small className="error">{formErrors.recipe}</small>}
 
                                         {/* Dropdown do wyboru tagów
                                         <select
@@ -228,7 +274,7 @@ const App = () => {
 					   ))}
 					</div>
 
-
+                                        {formErrors.tags && <small className="error">{formErrors.tags}</small>}
                                         <div className='form-buttons'>
                                             {
                                                 selectedRecipe ? (
