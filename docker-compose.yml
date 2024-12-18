@@ -27,7 +27,7 @@ services:
     #environment:
       #- DATABASE_URL=postgres://user:password@database:5432/db
     working_dir: /app
-    command: bash -c "sleep 3 && python3 manage.py runserver 0.0.0.0:8000"
+    command: bash -c "sleep 3 && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py create_default_tags && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - database
     networks:
