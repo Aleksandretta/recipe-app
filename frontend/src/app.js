@@ -14,7 +14,15 @@ const App = () => {
         tags: []
     });
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-    const [openView, setOpenView] = useState(false);
+    const [toView, setToView] = useState({
+        name: "",
+        country: "",
+        prep_time: "",
+        description: "",
+        recipe: "",
+        tags: []
+    })
+    const [openView, setOpenView] = useState(true);
 
     useEffect(() => {
         fetchRecipes();
@@ -62,6 +70,56 @@ const App = () => {
             })
             .catch(error => console.error(error));
     };
+
+    const handleViewClick = async(id) => {
+        const response = await axios.get(`http://127.0.0.1:8000/api/recipes/${id}/`)
+        setToView(response.data)
+        setOpenView(true)
+    }
+
+    const handleEditClick = (recipe) => {
+        setSelectedRecipe(recipe)
+        setNewRecipe(recipe)
+    }
+
+    const handleUpdateRecipe = (id) => {
+        axios.put(`http://127.0.0.1:8000/api/recipes/${selectedRecipe.id}/`, newRecipe)
+        .then(response => {
+            //populates the form with data from the database
+            fetchRecipes();
+            //clears input fields after clicking update button
+            setNewRecipe({
+                name: "",
+                country: "",
+                prep_time: "",
+                description: "",
+                recipe: "",
+                tags: []
+            })
+        })
+        .catch(error => console.error(error))
+    }
+
+    const handleCancelRecipe = (recipe) => {
+        setSelectedRecipe(null)
+        setNewRecipe({
+            name: "",
+            country: "",
+            prep_time: "",
+            description: "",
+            recipe: "",
+            tags: []
+        })
+    }
+
+    const handleDeleteClick = (id) => {
+        axios.delete(`http://127.0.0.1:8000/api/recipes/${id}/`, newRecipe)
+        .then(response => {
+            //populates the form with data from the database
+            fetchRecipes();
+        })
+        .catch(error => console.error(error))
+    }
 
     return (
         <div className='app-container'>
@@ -120,8 +178,8 @@ const App = () => {
                         {
                             selectedRecipe ? (
                                 <>
-                                    <button>Update</button>
-                                    <button>Cancel</button>
+                                    <button onClick={handleUpdateRecipe}>Update</button>
+                                    <button onClick={handleCancelRecipe}>Cancel</button>
                                 </>
                             ) : (
                                 <button onClick={handleAddRecipe}>Add new recipe</button>
@@ -130,6 +188,43 @@ const App = () => {
                     </div>
                 </div>
             </div>
+            <ul>
+                {
+                    recipes.map(recipe => (
+                        <li key={recipes.id}>
+                            <div>
+                                <strong>{recipes.name}</strong>
+                                <small>{recipes.country} {recipes.prep_time}</small>
+                            </div>
+                            <div className='actions'>
+                                <button className='view' onClick={() => handleViewClick(recipe.id)}>View</button>
+                                <button className='edit' onClick={() => handleEditClick(recipe)}>Edit</button>
+                                <button className='delete' onClick={() => handleDeleteClick(recipe.id)}>Delete</button>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+
+            {/*Single View */}
+            {openView && (
+                <>
+                    <div className='outer-box'>
+                        <strong>{toView.name}</strong>
+                        <br />
+                        <span>Country : {toView.country} </span>
+                        <br />
+                        <span>Preparation time : {toView.prep_time} </span>
+                        <br />
+                        <span>Description : {toView.description} </span>
+                        <br />
+                        <span>Recipe : {toView.recipe} </span>
+                        <br />
+                        <span>Tags : {toView.tags} </span>
+                    </div>
+                    <button onClick={() => setOpenView(false)}>Close</button>
+                </>
+            )}
         </div>
     );
 };
