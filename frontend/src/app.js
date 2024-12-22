@@ -191,9 +191,9 @@ const App = () => {
             <ul className='recipes-list'>
                 {
                     recipes.map(recipe => (
-                        <li key={recipes.id}>
+                        <li key={recipe.id}>
                             <div>
-                                <strong>{recipes.name}</strong>
+                                <strong>{recipe.name}</strong>
                             </div>
                             <div className='actions'>
                                 <button className='view' onClick={() => handleViewClick(recipe.id)}>View</button>
