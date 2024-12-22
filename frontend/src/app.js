@@ -188,13 +188,12 @@ const App = () => {
                     </div>
                 </div>
             </div>
-            <ul>
+            <ul className='recipes-list'>
                 {
                     recipes.map(recipe => (
                         <li key={recipes.id}>
                             <div>
                                 <strong>{recipes.name}</strong>
-                                <small>{recipes.country} {recipes.prep_time}</small>
                             </div>
                             <div className='actions'>
                                 <button className='view' onClick={() => handleViewClick(recipe.id)}>View</button>

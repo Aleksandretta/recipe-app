@@ -57,12 +57,12 @@ h1 {
     background-color: #45a049;
 }
 
-.student-list {
+.recipes-list {
     list-style: none;
     padding: 0;
 }
 
-.student-list li {
+.recipes-list li {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -74,21 +74,21 @@ h1 {
     transition: box-shadow 0.3s;
 }
 
-.student-list li:hover {
+.recipes-list li:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.student-list li div {
+.recipes-list li div {
     width: 75%;
 }
 
-.student-list li .actions {
+.recipes-list li .actions {
     width: 20%;
     display: flex;
     justify-content: space-between;
 }
 
-.student-list button {
+.recipes-list button {
     padding: 8px;
     cursor: pointer;
     font-size: 14px;
@@ -97,17 +97,17 @@ h1 {
     margin-right: 5px;
 }
 
-.student-list button.edit {
+.recipes-list button.edit {
     background-color: #2196F3;
     color: #fff;
 }
 
-.student-list button.delete {
+.recipes-list button.delete {
     background-color: #f44336;
     color: #fff;
     margin-right: 0;
 }
 
-.student-list button:hover {
+.recipes-list button:hover {
     background-color: #ddd;
 }
