@@ -38,27 +38,26 @@ Welcome to the Recipe App! This app allows users to store, search, view, update,
 ## App Usage
 
 **Adding a Recipe** <br/>
-Fill in the recipe form with the following fields:
-Name: The name of the recipe.
-Preparation Time: The time it takes to prepare the recipe.
-Ingredients: List the ingredients required for the recipe.
-Tags: Choose at least one tag from the available checkboxes.
-Once all fields are completed and at least one tag is selected, click the "Save Recipe" button to store it locally.
+Fill in the recipe form with the following fields:<br/>
+Name: The name of the recipe.<br/>
+Preparation Time: The time it takes to prepare the recipe.<br/>
+Ingredients: List the ingredients required for the recipe.<br/>
+Tags: Choose at least one tag from the available checkboxes.<br/>
+Once all fields are completed and at least one tag is selected, click the "Save Recipe" button to store it locally.<br/>
 
 Tags are built-in and they are initialized using a script "create_default_tags.py". User is advised to use the built-in tags. It it however possible to modify or add tags inside /backend/management/commands/create_default_tags.py script before the app initalization.
 
-**Searching Recipes**
+**Searching Recipes**<br/>
 Use the search bar below the form to filter the list of recipes by their name or tags. Simply type in the name or tag you are looking for and the list will update to show matching recipes.
 
-**Viewing a Recipe**
+**Viewing a Recipe**<br/>
 To view recipe details click "View" button on the recipe. This will display the name, preparation time, ingredients, and tags.
 
-**Updating a Recipe**
+**Updating a Recipe**<br/>
 To update a recipe, click on the "Edit" button next to the recipe in the list. This will fill in the form with the current recipe data. You can make changes and click "Save" Recipe to update the information. If you don't want to save your changes, click "Cancel".
 
-**Deleting a Recipe**
+**Deleting a Recipe**<br/>
 To delete a recipe, click the "Delete" button next to the recipe.
 
-## Local Storage
-
+## Local Storage<br/>
 Recipes app uses local storage to store youe recipes locally, so they will persist even after removal of Docker containers. However, the data will only be available on the same device.
