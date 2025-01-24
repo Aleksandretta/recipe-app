@@ -37,7 +37,7 @@ Welcome to the Recipe App! This app allows users to store, search, view, update,
 
 ## App Usage
 
-**Adding a Recipe** <br/>
+### Adding a Recipe <br/>
 Fill in the recipe form with the following fields:<br/>
 Name: The name of the recipe.<br/>
 Preparation Time: The time it takes to prepare the recipe.<br/>
