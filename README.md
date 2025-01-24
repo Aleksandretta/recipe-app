@@ -39,10 +39,12 @@ Welcome to the Recipe App! This app allows users to store, search, view, update,
 
 ### Adding a Recipe <br/>
 To add a recipe, fill in the recipe form with the following fields:<br/>
+
 **Name:** The name of the recipe.<br/>
 **Preparation Time:** The time it takes to prepare the recipe.<br/>
 **Ingredients:** List the ingredients required for the recipe.<br/>
 **Tags:** Choose at least one tag from the available checkboxes.<br/>
+
 Once all fields are completed and at least one tag is selected, click the "Save Recipe" button to store it locally.<br/>
 
 Tags are built-in and they are initialized using a script "create_default_tags.py". User is advised to use the built-in tags. It it however possible to modify or add tags inside /backend/management/commands/create_default_tags.py script before the app initalization.
