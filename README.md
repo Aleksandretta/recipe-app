@@ -31,6 +31,7 @@ to set up the environment and run the app for the first time.
 3. Once everything is initialized, your app data will be stored in a volume which is why it is enough to use
    ```bash
    docker compose up
+   ```
 
 ## App Usage
 
