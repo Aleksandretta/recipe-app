@@ -47,7 +47,7 @@ Tags are built-in and they are initialized using a script "create_default_tags.p
 Use the search bar below the form to filter the list of recipes by their name or tags. Simply type in the name or tag you are looking for and the list will update to show matching recipes.
 
 ### Viewing a Recipe<br/>
-To view recipe details click "View" button on the recipe. This will display the name, preparation time, ingredients, and tags.
+To view recipe details click "View" button next to the recipe in the list. This will display the name, preparation time, ingredients, and tags.
 
 ### Updating a Recipe<br/>
 To update a recipe, click on the "Edit" button next to the recipe in the list. This will fill in the form with the current recipe data. You can make changes and click "Save" Recipe to update the information. If you don't want to save your changes, click "Cancel".
