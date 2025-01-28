@@ -17,11 +17,10 @@ Welcome to the Recipe App! This app allows users to store, search, view, update,
   
 ## Getting Started
 
-1. Clone this repository to your local machine:
+1. Clone this repository to a chosen folder (e.g. recipeApp) on your local machine:
 
    ```bash
    git clone https://github.com/your-username/recipe-app.git
-   cd recipe-app
    ```
    
 2. Use the following command to set up the environment and run the app for the first time:
