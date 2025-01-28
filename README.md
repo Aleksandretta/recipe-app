@@ -23,17 +23,12 @@ Welcome to the Recipe App! This app allows users to store, search, view, update,
    git clone https://github.com/your-username/recipe-app.git
    ```
    
-2. Use the following command to set up the environment and run the app for the first time:
+2. Use the following command to set up the environment and run the app:
 
    ```bash
    docker compose up --build
    ```
  
-3. Once the app is initialized, your app data will be stored in a volume which is why it is enough to use
-   ```bash
-   docker compose up
-   ```
-
 ## App Usage
 
 ### Adding a Recipe <br/>
